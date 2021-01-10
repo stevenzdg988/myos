@@ -25,16 +25,16 @@ all: $(S_OBJECTS) $(C_OBJECTS) link update_image
 
 link:
 	@echo 链接内核文件...
-	$(LD) $(LD_FLAGS) $(S_OBJECTS) $(C_OBJECTS) -o kernel
+	$(LD) $(LD_FLAGS) $(S_OBJECTS) $(C_OBJECTS) -o fl-kernel
 
 .PHONY:clean
 clean:
-	$(RM) $(S_OBJECTS) $(C_OBJECTS) kernel
+	$(RM) $(S_OBJECTS) $(C_OBJECTS) fl-kernel
 
 .PHONY:update_image
 update_image:
 	sudo mount floppy.img /mnt/kernel
-	sudo cp kernel /mnt/kernel/kernel
+	sudo cp fl-kernel /mnt/kernel/kernel
 	sleep 1
 	sudo umount /mnt/kernel
 
