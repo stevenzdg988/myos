@@ -26,6 +26,8 @@ enum real_color {
 // 清屏操作
 void console_clear();
 
+void move_cursor();
+
 // 屏幕输出一个字符  带颜色
 void console_putc_color(char c, real_color_t back, real_color_t fore);
 

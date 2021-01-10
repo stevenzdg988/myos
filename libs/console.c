@@ -1,4 +1,5 @@
 #include "console.h"
+#include "common.h"
 // VGA 的显示缓冲的起点是 0xB8000
 static uint16_t *video_memory = (uint16_t *)0xB8000;
 
@@ -6,7 +7,7 @@ static uint16_t *video_memory = (uint16_t *)0xB8000;
 static uint8_t cursor_x = 0;
 static uint8_t cursor_y = 0;
 
-static void move_cursor()
+void move_cursor()
 {
     // 屏幕是 80 字节宽
     uint16_t cursorLocation = cursor_y * 80 + cursor_x;
@@ -14,10 +15,14 @@ static void move_cursor()
     // 在这里用到的两个内部寄存器的编号为14与15，分别表示光标位置
     // 的高8位与低8位。
 
-    outb(0x3D4, 14);                    // 告诉 VGA 我们要设置光标的高字节
-    outb(0x3D5, cursorLocation >> 8);   // 发送高 8 位
-    outb(0x3D4, 15);                    // 告诉 VGA 我们要设置光标的低字节
-    outb(0x3D5, cursorLocation);        // 发送低 8 位
+    outb(0x3D4, 14);
+    // 告诉 VGA 我们要设置光标的高字节
+    outb(0x3D5, cursorLocation >> 8);
+    // 发送高 8 位
+    outb(0x3D4, 15);
+    // 告诉 VGA 我们要设置光标的低字节
+    outb(0x3D5, cursorLocation);
+    // 发送低 8 位
 }
 
 void console_clear()
